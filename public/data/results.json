@@ -1,0 +1,479 @@
+{
+  "generatedAt": "2026-09-08T16:44:26.013Z",
+  "totalApplicants": 3000,
+  "companyWide": {
+    "conversionRate": 2.87,
+    "timeEfficiency": 18.64,
+    "offerAcceptRate": 69.48,
+    "referralEfficiency": 1.57,
+    "compositeScore": 20.66
+  },
+  "funnelOverall": [
+    {
+      "stage": "Applied",
+      "count": 3000
+    },
+    {
+      "stage": "Phone Screen",
+      "count": 2679
+    },
+    {
+      "stage": "Technical Round",
+      "count": 2397
+    },
+    {
+      "stage": "Culture Fit",
+      "count": 2118
+    },
+    {
+      "stage": "Hiring Manager",
+      "count": 1817
+    },
+    {
+      "stage": "Offer Extended",
+      "count": 1524
+    },
+    {
+      "stage": "Offer Accepted",
+      "count": 173
+    },
+    {
+      "stage": "Joined",
+      "count": 86
+    }
+  ],
+  "funnelByDepartment": {
+    "Engineering": [
+      {
+        "stage": "Applied",
+        "count": 304
+      },
+      {
+        "stage": "Phone Screen",
+        "count": 276
+      },
+      {
+        "stage": "Technical Round",
+        "count": 249
+      },
+      {
+        "stage": "Culture Fit",
+        "count": 230
+      },
+      {
+        "stage": "Hiring Manager",
+        "count": 201
+      },
+      {
+        "stage": "Offer Extended",
+        "count": 171
+      },
+      {
+        "stage": "Offer Accepted",
+        "count": 15
+      },
+      {
+        "stage": "Joined",
+        "count": 7
+      }
+    ],
+    "Operations": [
+      {
+        "stage": "Applied",
+        "count": 311
+      },
+      {
+        "stage": "Phone Screen",
+        "count": 279
+      },
+      {
+        "stage": "Technical Round",
+        "count": 247
+      },
+      {
+        "stage": "Culture Fit",
+        "count": 217
+      },
+      {
+        "stage": "Hiring Manager",
+        "count": 190
+      },
+      {
+        "stage": "Offer Extended",
+        "count": 160
+      },
+      {
+        "stage": "Offer Accepted",
+        "count": 22
+      },
+      {
+        "stage": "Joined",
+        "count": 14
+      }
+    ],
+    "Design": [
+      {
+        "stage": "Applied",
+        "count": 311
+      },
+      {
+        "stage": "Phone Screen",
+        "count": 282
+      },
+      {
+        "stage": "Technical Round",
+        "count": 255
+      },
+      {
+        "stage": "Culture Fit",
+        "count": 216
+      },
+      {
+        "stage": "Hiring Manager",
+        "count": 185
+      },
+      {
+        "stage": "Offer Extended",
+        "count": 156
+      },
+      {
+        "stage": "Offer Accepted",
+        "count": 18
+      },
+      {
+        "stage": "Joined",
+        "count": 5
+      }
+    ],
+    "HR": [
+      {
+        "stage": "Applied",
+        "count": 295
+      },
+      {
+        "stage": "Phone Screen",
+        "count": 266
+      },
+      {
+        "stage": "Technical Round",
+        "count": 231
+      },
+      {
+        "stage": "Culture Fit",
+        "count": 202
+      },
+      {
+        "stage": "Hiring Manager",
+        "count": 179
+      },
+      {
+        "stage": "Offer Extended",
+        "count": 143
+      },
+      {
+        "stage": "Offer Accepted",
+        "count": 14
+      },
+      {
+        "stage": "Joined",
+        "count": 8
+      }
+    ],
+    "Sales": [
+      {
+        "stage": "Applied",
+        "count": 297
+      },
+      {
+        "stage": "Phone Screen",
+        "count": 264
+      },
+      {
+        "stage": "Technical Round",
+        "count": 246
+      },
+      {
+        "stage": "Culture Fit",
+        "count": 222
+      },
+      {
+        "stage": "Hiring Manager",
+        "count": 186
+      },
+      {
+        "stage": "Offer Extended",
+        "count": 161
+      },
+      {
+        "stage": "Offer Accepted",
+        "count": 21
+      },
+      {
+        "stage": "Joined",
+        "count": 13
+      }
+    ],
+    "Finance": [
+      {
+        "stage": "Applied",
+        "count": 317
+      },
+      {
+        "stage": "Phone Screen",
+        "count": 278
+      },
+      {
+        "stage": "Technical Round",
+        "count": 241
+      },
+      {
+        "stage": "Culture Fit",
+        "count": 210
+      },
+      {
+        "stage": "Hiring Manager",
+        "count": 169
+      },
+      {
+        "stage": "Offer Extended",
+        "count": 134
+      },
+      {
+        "stage": "Offer Accepted",
+        "count": 18
+      },
+      {
+        "stage": "Joined",
+        "count": 8
+      }
+    ],
+    "Customer Support": [
+      {
+        "stage": "Applied",
+        "count": 290
+      },
+      {
+        "stage": "Phone Screen",
+        "count": 252
+      },
+      {
+        "stage": "Technical Round",
+        "count": 227
+      },
+      {
+        "stage": "Culture Fit",
+        "count": 201
+      },
+      {
+        "stage": "Hiring Manager",
+        "count": 168
+      },
+      {
+        "stage": "Offer Extended",
+        "count": 143
+      },
+      {
+        "stage": "Offer Accepted",
+        "count": 13
+      },
+      {
+        "stage": "Joined",
+        "count": 5
+      }
+    ],
+    "Marketing": [
+      {
+        "stage": "Applied",
+        "count": 297
+      },
+      {
+        "stage": "Phone Screen",
+        "count": 264
+      },
+      {
+        "stage": "Technical Round",
+        "count": 246
+      },
+      {
+        "stage": "Culture Fit",
+        "count": 212
+      },
+      {
+        "stage": "Hiring Manager",
+        "count": 185
+      },
+      {
+        "stage": "Offer Extended",
+        "count": 151
+      },
+      {
+        "stage": "Offer Accepted",
+        "count": 20
+      },
+      {
+        "stage": "Joined",
+        "count": 10
+      }
+    ],
+    "Product": [
+      {
+        "stage": "Applied",
+        "count": 276
+      },
+      {
+        "stage": "Phone Screen",
+        "count": 246
+      },
+      {
+        "stage": "Technical Round",
+        "count": 220
+      },
+      {
+        "stage": "Culture Fit",
+        "count": 203
+      },
+      {
+        "stage": "Hiring Manager",
+        "count": 175
+      },
+      {
+        "stage": "Offer Extended",
+        "count": 147
+      },
+      {
+        "stage": "Offer Accepted",
+        "count": 12
+      },
+      {
+        "stage": "Joined",
+        "count": 7
+      }
+    ],
+    "Data Science": [
+      {
+        "stage": "Applied",
+        "count": 302
+      },
+      {
+        "stage": "Phone Screen",
+        "count": 272
+      },
+      {
+        "stage": "Technical Round",
+        "count": 235
+      },
+      {
+        "stage": "Culture Fit",
+        "count": 205
+      },
+      {
+        "stage": "Hiring Manager",
+        "count": 179
+      },
+      {
+        "stage": "Offer Extended",
+        "count": 158
+      },
+      {
+        "stage": "Offer Accepted",
+        "count": 20
+      },
+      {
+        "stage": "Joined",
+        "count": 9
+      }
+    ]
+  },
+  "departmentBreakdown": [
+    {
+      "department": "Engineering",
+      "totalApplicants": 304,
+      "conversionRate": 2.3,
+      "timeEfficiency": 16,
+      "offerAcceptRate": 57.69,
+      "referralEfficiency": 3.03,
+      "compositeScore": 17.64
+    },
+    {
+      "department": "Operations",
+      "totalApplicants": 311,
+      "conversionRate": 4.5,
+      "timeEfficiency": 22.5,
+      "offerAcceptRate": 78.57,
+      "referralEfficiency": 3.03,
+      "compositeScore": 24.42
+    },
+    {
+      "department": "Design",
+      "totalApplicants": 311,
+      "conversionRate": 1.61,
+      "timeEfficiency": 17.4,
+      "offerAcceptRate": 66.67,
+      "referralEfficiency": 2,
+      "compositeScore": 19.44
+    },
+    {
+      "department": "HR",
+      "totalApplicants": 295,
+      "conversionRate": 2.71,
+      "timeEfficiency": 27.88,
+      "offerAcceptRate": 58.33,
+      "referralEfficiency": 2.5,
+      "compositeScore": 21.34
+    },
+    {
+      "department": "Sales",
+      "totalApplicants": 297,
+      "conversionRate": 4.38,
+      "timeEfficiency": 16.69,
+      "offerAcceptRate": 77.78,
+      "referralEfficiency": 2.5,
+      "compositeScore": 22.38
+    },
+    {
+      "department": "Finance",
+      "totalApplicants": 317,
+      "conversionRate": 2.52,
+      "timeEfficiency": 15.38,
+      "offerAcceptRate": 75,
+      "referralEfficiency": 0,
+      "compositeScore": 20.37
+    },
+    {
+      "department": "Customer Support",
+      "totalApplicants": 290,
+      "conversionRate": 1.72,
+      "timeEfficiency": 28.2,
+      "offerAcceptRate": 86.67,
+      "referralEfficiency": 0,
+      "compositeScore": 26.31
+    },
+    {
+      "department": "Marketing",
+      "totalApplicants": 297,
+      "conversionRate": 3.37,
+      "timeEfficiency": 10.7,
+      "offerAcceptRate": 68.97,
+      "referralEfficiency": 0,
+      "compositeScore": 18.01
+    },
+    {
+      "department": "Product",
+      "totalApplicants": 276,
+      "conversionRate": 2.54,
+      "timeEfficiency": 14,
+      "offerAcceptRate": 57.14,
+      "referralEfficiency": 0,
+      "compositeScore": 16.39
+    },
+    {
+      "department": "Data Science",
+      "totalApplicants": 302,
+      "conversionRate": 2.98,
+      "timeEfficiency": 20,
+      "offerAcceptRate": 71.43,
+      "referralEfficiency": 2.38,
+      "compositeScore": 21.66
+    }
+  ]
+}
