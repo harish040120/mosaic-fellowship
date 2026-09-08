@@ -5,7 +5,7 @@ export default function ReportView({ data, funnelOverall, departmentBreakdown })
     <div className="report-view" id="report-view">
       <div style={{ marginBottom: 32 }}>
         <div style={{ fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#888', marginBottom: 8 }}>
-          Hiring Funnel Analytics Report
+          Sieve — a hiring funnel is literally a sieve
         </div>
         <div style={{ fontSize: 14, color: '#666', marginBottom: 4 }}>
           Generated {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}

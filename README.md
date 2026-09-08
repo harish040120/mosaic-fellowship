@@ -1,4 +1,4 @@
-# Hiring Funnel Analytics
+# Sieve — a hiring funnel is literally a sieve
 
 **Composite Hiring Efficiency Score: 20.66 / 100**
 
