@@ -1,9 +1,8 @@
 import { useRef } from 'react';
 
 export default function ReportView({ data, funnelOverall, departmentBreakdown }) {
-  const ref = useRef(null);
   return (
-    <div className="report-view" ref={ref} id="report-view">
+    <div className="report-view" id="report-view">
       <div style={{ marginBottom: 32 }}>
         <div style={{ fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#888', marginBottom: 8 }}>
           Hiring Funnel Analytics Report
@@ -108,61 +107,87 @@ export default function ReportView({ data, funnelOverall, departmentBreakdown })
 }
 
 export async function generatePDF(data) {
-  const { default: jsPDF } = await import('jspdf');
-  const { default: html2canvas } = await import('html2canvas');
+  const [{ default: jsPDF }, { default: html2canvas }] = await Promise.all([
+    import('jspdf'),
+    import('html2canvas'),
+  ]);
 
   const el = document.getElementById('report-view');
   if (!el) throw new Error('Report view not found');
 
-  el.style.position = 'absolute';
+  // Show element for rendering
+  el.style.position = 'fixed';
   el.style.left = '0';
   el.style.top = '0';
   el.style.zIndex = '-1';
   el.style.opacity = '1';
+  el.style.pointerEvents = 'none';
 
-  await new Promise(r => setTimeout(r, 100));
+  // Wait for layout
+  await new Promise(r => setTimeout(r, 200));
 
-  const pdf = new jsPDF('p', 'mm', 'a4');
-  const pageW = pdf.internal.pageSize.getWidth();
-  const pageH = pdf.internal.pageSize.getHeight();
-  const margin = 16;
-  const contentW = pageW - margin * 2;
+  try {
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const pageW = pdf.internal.pageSize.getWidth();
+    const pageH = pdf.internal.pageSize.getHeight();
+    const margin = 12;
+    const contentW = pageW - margin * 2;
 
-  const canvas = await html2canvas(el, {
-    scale: 2,
-    useCORS: true,
-    backgroundColor: '#ffffff',
-    logging: false,
-  });
+    const canvas = await html2canvas(el, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: '#ffffff',
+      logging: false,
+      width: 800,
+      windowWidth: 800,
+    });
 
-  el.style.position = 'absolute';
-  el.style.left = '-9999px';
-  el.style.opacity = '1';
+    const imgData = canvas.toDataURL('image/png');
+    const pxPerMm = canvas.width / contentW;
+    const totalImgMm = canvas.height / pxPerMm;
+    const sliceH = pageH - margin * 2 - 10; // leave room for footer
 
-  const imgData = canvas.toDataURL('image/png');
-  const imgH = (canvas.height * contentW) / canvas.width;
+    let yOffset = 0;
+    let page = 1;
+    const totalPages = Math.max(1, Math.ceil(totalImgMm / sliceH));
 
-  let y = 0;
-  let page = 1;
-  const totalPages = Math.ceil(imgH / (pageH - margin * 2));
+    while (yOffset < totalImgMm) {
+      if (page > 1) pdf.addPage();
 
-  while (y < imgH) {
-    if (page > 1) pdf.addPage();
+      // Calculate source rectangle in pixels
+      const srcY = yOffset * pxPerMm;
+      const srcH = Math.min(sliceH * pxPerMm, canvas.height - srcY);
 
-    pdf.addImage(imgData, 'PNG', margin, margin - y, contentW, imgH);
+      // Create a slice canvas
+      const sliceCanvas = document.createElement('canvas');
+      sliceCanvas.width = canvas.width;
+      sliceCanvas.height = srcH;
+      const ctx = sliceCanvas.getContext('2d');
+      ctx.drawImage(canvas, 0, srcY, canvas.width, srcH, 0, 0, canvas.width, srcH);
 
-    pdf.setFontSize(8);
-    pdf.setTextColor(150);
-    pdf.text(`Page ${page} of ${totalPages}`, pageW / 2, pageH - 8, { align: 'center' });
-    pdf.text('https://effervescent-squirrel-574374.netlify.app/', margin, pageH - 8);
+      const sliceData = sliceCanvas.toDataURL('image/png');
+      const sliceMmH = srcH / pxPerMm;
 
-    y += pageH - margin * 2;
-    page++;
+      pdf.addImage(sliceData, 'PNG', margin, margin, contentW, sliceMmH);
+
+      // Footer
+      pdf.setFontSize(7);
+      pdf.setTextColor(150);
+      pdf.text(`Page ${page} of ${totalPages}`, pageW / 2, pageH - 6, { align: 'center' });
+      pdf.text('https://effervescent-squirrel-574374.netlify.app/', margin, pageH - 6);
+
+      yOffset += sliceH;
+      page++;
+    }
+
+    const today = new Date().toISOString().split('T')[0];
+    pdf.save(`hiring-funnel-report-${today}.pdf`);
+  } finally {
+    // Always hide the element
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
+    el.style.zIndex = '';
+    el.style.opacity = '';
+    el.style.pointerEvents = '';
   }
-
-  el.style.position = 'absolute';
-  el.style.left = '-9999px';
-
-  const today = new Date().toISOString().split('T')[0];
-  pdf.save(`hiring-funnel-report-${today}.pdf`);
 }
