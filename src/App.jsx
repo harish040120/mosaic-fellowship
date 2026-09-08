@@ -5,6 +5,7 @@ import Funnel from './components/Funnel';
 import DepartmentBreakdown from './components/DepartmentBreakdown';
 import Writeup from './components/Writeup';
 import ThemeToggle from './components/ThemeToggle';
+import ReportView from './components/ReportView';
 import { ThemeProvider } from './context/ThemeContext';
 import { generatePDF } from './components/ReportView';
 import './App.css';
@@ -97,6 +98,11 @@ function AppInner() {
           {error}
         </div>
       )}
+      <ReportView
+        data={data.companyWide}
+        funnelOverall={data.funnelOverall}
+        departmentBreakdown={data.departmentBreakdown}
+      />
     </>
   );
 }
