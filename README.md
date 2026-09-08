@@ -6,7 +6,7 @@ Interactive dashboard analyzing 3,000 job applicants across 10 departments, buil
 
 ## Live Demo
 
-[View Live Dashboard](https://your-netlify-url.netlify.app)
+[View Live Dashboard](https://effervescent-squirrel-574374.netlify.app/)
 
 ## Setup
 
