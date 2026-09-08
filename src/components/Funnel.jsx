@@ -1,15 +1,5 @@
 import { useState } from 'react';
-
-const STAGE_COLORS = [
-  '#6366f1', // Applied
-  '#818cf8', // Phone Screen
-  '#a78bfa', // Technical Round
-  '#c084fc', // Culture Fit
-  '#e879f9', // Hiring Manager
-  '#f472b6', // Offer Extended
-  '#fb923c', // Offer Accepted
-  '#22c55e', // Joined
-];
+import { motion } from 'framer-motion';
 
 export default function Funnel({ overall, byDepartment }) {
   const [selected, setSelected] = useState('__overall__');
@@ -18,12 +8,17 @@ export default function Funnel({ overall, byDepartment }) {
   const maxCount = funnelData[0]?.count || 1;
 
   return (
-    <div className="section">
-      <h2 className="section-title">Hiring Funnel</h2>
+    <div className="section" id="funnel">
+      <div className="section-header">
+        <div className="eyebrow">Funnel Analysis</div>
+        <h2 className="section-title">Hiring Funnel</h2>
+      </div>
+
       <div className="funnel-controls">
-        <label htmlFor="dept-select">Department:</label>
+        <label htmlFor="dept-select">Department</label>
         <select
           id="dept-select"
+          className="funnel-select"
           value={selected}
           onChange={e => setSelected(e.target.value)}
         >
@@ -33,28 +28,44 @@ export default function Funnel({ overall, byDepartment }) {
           ))}
         </select>
       </div>
+
       <div className="funnel-bar-container">
         {funnelData.map((stage, i) => {
           const pct = (stage.count / maxCount) * 100;
+          const prevCount = i > 0 ? funnelData[i - 1].count : stage.count;
+          const dropPct = i > 0 && prevCount > 0
+            ? (((prevCount - stage.count) / prevCount) * 100).toFixed(1)
+            : null;
+          const dropped = dropPct !== null && parseFloat(dropPct) > 0;
+
           return (
-            <div className="funnel-row" key={stage.stage}>
+            <motion.div
+              className="funnel-row"
+              key={stage.stage}
+              initial={{ opacity: 0, x: -12 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.3, delay: i * 0.04 }}
+            >
               <span className="stage-name">{stage.stage}</span>
               <div className="bar-track">
-                <div
+                <motion.div
                   className="bar-fill"
-                  style={{
-                    width: `${pct}%`,
-                    background: STAGE_COLORS[i],
-                  }}
+                  initial={{ width: 0 }}
+                  animate={{ width: `${pct}%` }}
+                  transition={{ duration: 0.5, delay: 0.1 + i * 0.04, ease: [0.4, 0, 0.2, 1] }}
                 />
               </div>
               <span className="bar-count">{stage.count.toLocaleString()}</span>
-            </div>
+              <span className={`bar-drop ${!dropped ? 'none' : ''}`}>
+                {dropped ? `-${dropPct}%` : '—'}
+              </span>
+            </motion.div>
           );
         })}
       </div>
-      <p style={{ color: 'var(--muted)', fontSize: '0.75rem', marginTop: '0.75rem' }}>
-        Counts show applicants who <strong>reached at least</strong> each stage (cumulative).
+
+      <p className="funnel-note">
+        Counts show applicants who reached at least each stage (cumulative). Drop % shows loss from previous stage.
       </p>
     </div>
   );

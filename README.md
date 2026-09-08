@@ -50,8 +50,15 @@ The company's overall **Composite Hiring Efficiency Score is 20.66**.
 
 - React 19 + Vite 5
 - Recharts (bar charts)
+- Framer Motion (animations)
+- Lucide React (icons)
+- jsPDF + html2canvas (PDF export)
 - Vitest (testing)
 - Netlify (hosting)
+
+## Report Export
+
+Click **Export PDF** in the top-right to download a clean, print-quality PDF report containing the composite score, funnel visualization, department breakdown table, and write-up — suitable for sharing with non-technical stakeholders.
 
 ## Dataset
 
