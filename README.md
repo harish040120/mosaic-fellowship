@@ -48,13 +48,7 @@ The company's overall **Composite Hiring Efficiency Score is 20.66**.
 
 ## Tech Stack
 
-- React 19 + Vite 5
-- Recharts (bar charts)
-- Framer Motion (animations)
-- Lucide React (icons)
-- jsPDF + html2canvas (PDF export)
-- Vitest (testing)
-- Netlify (hosting)
+React 19 + Vite 5, Recharts (bar charts), Framer Motion (animations), Lucide React (icons), jsPDF + html2canvas (PDF export), Vitest (testing), Netlify (hosting)
 
 ## Report Export
 
