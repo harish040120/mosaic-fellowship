@@ -1,9 +1,11 @@
+import { useRef } from 'react';
+
 export default function ReportView({ data, funnelOverall, departmentBreakdown }) {
   return (
     <div className="report-view" id="report-view">
       <div style={{ marginBottom: 32 }}>
         <div style={{ fontSize: 11, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#888', marginBottom: 8 }}>
-          Sieve - a hiring funnel is literally a sieve
+          Sieve
         </div>
         <div style={{ fontSize: 14, color: '#666', marginBottom: 4 }}>
           Generated {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
@@ -45,7 +47,7 @@ export default function ReportView({ data, funnelOverall, departmentBreakdown })
       </table>
 
       <div style={{ marginBottom: 32 }}>
-        <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 12, borderBottom: '1px solid #eee', paddingBottom: 8 }}>Hiring Funnel — All Departments</div>
+        <div style={{ fontSize: 13, fontWeight: 700, marginBottom: 12, borderBottom: '1px solid #eee', paddingBottom: 8 }}>Hiring Funnel - All Departments</div>
         {funnelOverall.map((stage, i) => {
           const max = funnelOverall[0].count;
           const pct = (stage.count / max) * 100;
@@ -113,6 +115,7 @@ export async function generatePDF(data) {
   const el = document.getElementById('report-view');
   if (!el) throw new Error('Report view not found');
 
+  // Show element for rendering
   el.style.position = 'fixed';
   el.style.left = '0';
   el.style.top = '0';
@@ -129,259 +132,62 @@ export async function generatePDF(data) {
     const margin = 12;
     const contentW = pageW - margin * 2;
 
-    const funnelEl = el.querySelector('[style*="Hiring Funnel"]')?.parentElement;
-    const tableEl = document.getElementById('dept-breakdown-table');
-
-    // Capture funnel chart as image
-    let funnelImgData = null;
-    if (funnelEl) {
-      const funnelCanvas = await html2canvas(funnelEl, {
-        scale: 2,
-        useCORS: true,
-        backgroundColor: '#ffffff',
-        logging: false,
-      });
-      funnelImgData = funnelCanvas.toDataURL('image/png');
-    }
-
-    // PAGE 1: Title, Score, Metrics, Funnel
-    let y = margin;
-
-    // Title block
-    pdf.setFontSize(10);
-    pdf.setTextColor(136);
-    pdf.text('Hiring Funnel Analytics Report', margin, y);
-    y += 5;
-    pdf.setFontSize(12);
-    pdf.text(new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }), margin, y);
-    y += 10;
-
-    // Composite Score
-    pdf.setFontSize(10);
-    pdf.setTextColor(136);
-    pdf.text('COMPOSITE HIRING EFFICIENCY SCORE', margin, y);
-    y += 6;
-    pdf.setFontSize(36);
-    pdf.setTextColor(26, 26, 24);
-    pdf.setFont('helvetica', 'bold');
-    pdf.text(String(data.compositeScore), margin, y);
-    y += 14;
-    pdf.setFontSize(10);
-    pdf.setTextColor(136);
-    pdf.setFont('helvetica', 'normal');
-    pdf.text('out of 100', margin, y);
-    y += 10;
-
-    // Progress bar
-    const barW = contentW;
-    const barH = 2;
-    pdf.setDrawColor(224);
-    pdf.setFillColor(224);
-    pdf.rect(margin, y, barW, barH, 'FD');
-    const fillW = (data.compositeScore / 100) * barW;
-    pdf.setFillColor(31, 95, 74);
-    pdf.rect(margin, y, fillW, barH, 'F');
-    y += 10;
-
-    // Metrics table
-    pdf.setFontSize(11);
-    pdf.setTextColor(102);
-    pdf.setFont('helvetica', 'bold');
-    const colWidths = [contentW * 0.5, contentW * 0.25, contentW * 0.25];
-    const colX = [margin, margin + colWidths[0], margin + colWidths[0] + colWidths[1]];
-    
-    pdf.setFontSize(9);
-    pdf.text('Metric', colX[0], y);
-    pdf.text('Value', colX[1], y);
-    pdf.text('Weight', colX[2], y);
-    y += 5;
-    pdf.setDrawColor(221);
-    pdf.line(margin, y, pageW - margin, y);
-    y += 6;
-
-    const metrics = [
-      ['Conversion Rate', `${data.conversionRate}%`, '30%'],
-      ['Time Efficiency', `${data.timeEfficiency}`, '30%'],
-      ['Offer Acceptance Rate', `${data.offerAcceptRate}%`, '20%'],
-      ['Referral Efficiency', `${data.referralEfficiency}%`, '20%'],
-    ];
-
-    pdf.setFontSize(10);
-    pdf.setTextColor(51);
-    pdf.setFont('helvetica', 'normal');
-    metrics.forEach(([label, value, weight], i) => {
-      if (i % 2 === 0) {
-        pdf.setFillColor(248);
-        pdf.rect(margin, y - 1, contentW, 7, 'F');
-      }
-      pdf.text(label, colX[0], y + 5);
-      pdf.text(value, colX[1], y + 5);
-      pdf.text(weight, colX[2], y + 5);
-      y += 7;
-    });
-    y += 6;
-
-    // Funnel Chart
-    pdf.setFontSize(11);
-    pdf.setTextColor(51);
-    pdf.setFont('helvetica', 'bold');
-    pdf.text('Hiring Funnel — All Departments', margin, y);
-    y += 8;
-
-    if (funnelImgData) {
-      const imgProps = pdf.getImageProperties(funnelImgData);
-      const imgW = contentW;
-      const imgH = (imgProps.height * imgW) / imgProps.width;
-      const maxH = 80;
-      const finalH = Math.min(imgH, maxH);
-      const finalW = (imgProps.width * finalH) / imgProps.height;
-      
-      pdf.addImage(funnelImgData, 'PNG', margin, y, finalW, finalH);
-      y += finalH + 8;
-    }
-
-    // Footer page 1
-    pdf.setFontSize(7);
-    pdf.setTextColor(150);
-    pdf.text('Page 1 of 3', pageW / 2, pageH - 6, { align: 'center' });
-    pdf.text('https://effervescent-squirrel-574374.netlify.app/', margin, pageH - 6);
-
-    // PAGE 2: Department Breakdown Table
-    pdf.addPage();
-    y = margin;
-
-    pdf.setFontSize(11);
-    pdf.setTextColor(51);
-    pdf.setFont('helvetica', 'bold');
-    pdf.text('Department Breakdown', margin, y);
-    y += 6;
-    pdf.setDrawColor(221);
-    pdf.line(margin, y, pageW - margin, y);
-    y += 8;
-
-    // Table headers
-    const headers = ['Department', 'Composite', 'Conv. Rate', 'Time Eff.', 'Offer Accept', 'Referral Eff.', 'Applicants'];
-    const tableColWidths = [contentW * 0.22, contentW * 0.13, contentW * 0.13, contentW * 0.13, contentW * 0.13, contentW * 0.13, contentW * 0.13];
-    const tableColX = tableColWidths.reduce((acc, w) => [...acc, acc[acc.length - 1] + w], [margin]).slice(0, -1);
-
-    pdf.setFontSize(8);
-    pdf.setTextColor(102);
-    pdf.setFont('helvetica', 'bold');
-    headers.forEach((h, i) => {
-      pdf.text(h, tableColX[i], y);
-    });
-    y += 4;
-    pdf.setDrawColor(221);
-    pdf.line(margin, y, pageW - margin, y);
-    y += 5;
-
-    // Table rows
-    pdf.setFontSize(8);
-    pdf.setTextColor(51);
-    pdf.setFont('helvetica', 'normal');
-    const sortedDepts = [...data.departmentBreakdown].sort((a, b) => b.compositeScore - a.compositeScore);
-    
-    sortedDepts.forEach((d, i) => {
-      if (y > pageH - 30) {
-        pdf.addPage();
-        y = margin;
-        // Repeat headers
-        pdf.setFontSize(8);
-        pdf.setTextColor(102);
-        pdf.setFont('helvetica', 'bold');
-        headers.forEach((h, j) => {
-          pdf.text(h, tableColX[j], y);
-        });
-        y += 4;
-        pdf.setDrawColor(221);
-        pdf.line(margin, y, pageW - margin, y);
-        y += 5;
-        pdf.setFontSize(8);
-        pdf.setTextColor(51);
-        pdf.setFont('helvetica', 'normal');
-      }
-
-      if (i % 2 === 0) {
-        pdf.setFillColor(248);
-        pdf.rect(margin, y - 1, contentW, 6, 'F');
-      }
-
-      const values = [
-        d.department,
-        String(d.compositeScore),
-        `${d.conversionRate}%`,
-        String(d.timeEfficiency),
-        `${d.offerAcceptRate}%`,
-        `${d.referralEfficiency}%`,
-        String(d.totalApplicants),
-      ];
-      values.forEach((v, j) => {
-        pdf.text(v, tableColX[j], y + 5);
-      });
-      y += 6;
-    });
-    y += 10;
-
-    // Top 3 Things to Fix
-    pdf.setFontSize(11);
-    pdf.setTextColor(51);
-    pdf.setFont('helvetica', 'bold');
-    pdf.text('Top 3 Things to Fix', margin, y);
-    y += 6;
-    pdf.setDrawColor(221);
-    pdf.line(margin, y, pageW - margin, y);
-    y += 8;
-
-    const fixes = [
-      { 
-        title: 'Shorten Time-to-Hire', 
-        text: 'Average time-to-hire is 81 days (Time Efficiency: 18.64/100). The 7-stage process accumulates delays at every handoff. Consolidate or parallelize stages and set SLAs for transitions.' 
-      },
-      { 
-        title: 'Fix the Referral Pipeline', 
-        text: 'Employee referrals convert at just 1.57% (6 of 382 joined) vs. 2.87% overall. Audit referral quality, implement expedited processing, and review incentive structures.' 
-      },
-      { 
-        title: 'Reduce Offer-to-Join Leakage', 
-        text: 'Of 1,524 who reached Offer Extended, only 86 joined (5.6%). Benchmark CTC, tighten the offer loop, and implement candidate follow-up sequences.' 
-      },
-    ];
-
-    pdf.setFontSize(10);
-    pdf.setTextColor(51);
-    pdf.setFont('helvetica', 'normal');
-    
-    fixes.forEach((fix, i) => {
-      if (y > pageH - 30) {
-        pdf.addPage();
-        y = margin;
-      }
-      
-      pdf.setFont('helvetica', 'bold');
-      pdf.setFontSize(10);
-      pdf.text(`${i + 1}. ${fix.title}`, margin, y);
-      y += 6;
-      
-      pdf.setFont('helvetica', 'normal');
-      pdf.setFontSize(9);
-      const splitText = pdf.splitTextToSize(fix.text, contentW);
-      pdf.text(splitText, margin, y);
-      y += splitText.length * 5 + 8;
+    // Single-canvas approach: capture entire report as one image
+    const canvas = await html2canvas(el, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: '#ffffff',
+      logging: false,
+      width: 800,
+      windowWidth: 800,
     });
 
-    // Footer for all pages
-    const totalPages = pdf.internal.getNumberOfPages();
-    for (let p = 1; p <= totalPages; p++) {
-      pdf.setPage(p);
+    const imgData = canvas.toDataURL('image/png');
+    const imgW = contentW;
+    const imgH = (canvas.height * imgW) / canvas.width;
+
+    // Add to PDF with auto-pagination
+    let yPos = 0;
+    let page = 1;
+    const maxPageHeight = pageH - margin * 2 - 10; // leave footer space
+    const totalPages = Math.ceil(imgH / maxPageHeight);
+
+    while (yPos < imgH) {
+      if (page > 1) pdf.addPage();
+
+      const srcY = yPos * (canvas.height / imgH);
+      const srcH = Math.min(maxPageHeight * (canvas.height / imgH), canvas.height - srcY);
+      const srcW = canvas.width;
+
+      // Create a slice canvas for this page
+      const sliceCanvas = document.createElement('canvas');
+      sliceCanvas.width = canvas.width;
+      sliceCanvas.height = srcH;
+      const ctx = sliceCanvas.getContext('2d');
+      ctx.drawImage(canvas, 0, srcY, srcW, srcH, 0, 0, srcW, srcH);
+
+      const sliceData = sliceCanvas.toDataURL('image/png');
+      const finalH = (srcH * contentW) / srcW;
+
+      pdf.addImage(sliceData, 'PNG', margin, margin, contentW, finalH);
+
+      // Footer on every page
       pdf.setFontSize(7);
       pdf.setTextColor(150);
-      pdf.text(`Page ${p} of ${totalPages}`, pageW / 2, pageH - 6, { align: 'center' });
+      pdf.text(`Page ${page} of ${totalPages}`, pageW / 2, pageH - 6, { align: 'center' });
       pdf.text('https://effervescent-squirrel-574374.netlify.app/', margin, pageH - 6);
+
+      yPos += maxPageHeight;
+      page++;
     }
 
     const today = new Date().toISOString().split('T')[0];
     pdf.save(`hiring-funnel-report-${today}.pdf`);
+  } catch (e) {
+    // Re-throw so App.jsx can show the error
+    throw new Error('PDF export failed: ' + e.message);
   } finally {
+    // Always hide the element
     el.style.position = 'absolute';
     el.style.left = '-9999px';
     el.style.zIndex = '';

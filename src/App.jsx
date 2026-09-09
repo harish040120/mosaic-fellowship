@@ -86,7 +86,7 @@ function AppInner() {
         <Writeup />
 
         <footer className="footer">
-          <p>Generated {new Date(data.generatedAt).toLocaleDateString()} · Sieve — Composite Hiring Efficiency Score: <strong>{data.companyWide.compositeScore}</strong></p>
+          <p>Generated {new Date(data.generatedAt).toLocaleDateString()} · Sieve  -  Composite Hiring Efficiency Score: <strong>{data.companyWide.compositeScore}</strong></p>
         </footer>
       </div>
 

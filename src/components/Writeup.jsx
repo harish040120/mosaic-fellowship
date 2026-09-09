@@ -4,7 +4,7 @@ const fixes = [
   {
     title: 'Shorten Time-to-Hire',
     problem: 'Average time-to-hire is 81 days (Time Efficiency score: 18.64/100). The 7-stage process accumulates delays at every handoff.',
-    why: 'Time efficiency is the single largest drag on the composite score. A 20-day reduction would add ~20 points to this metric alone — the biggest possible improvement.',
+    why: 'Time efficiency is the single largest drag on the composite score. A 20-day reduction would add ~20 points to this metric alone  -  the biggest possible improvement.',
     next: 'Consolidate or parallelize stages (e.g., combine Culture Fit + Hiring Manager rounds). Set SLAs for each stage transition and track average cycle times per department.',
   },
   {
@@ -15,7 +15,7 @@ const fixes = [
   },
   {
     title: 'Reduce Offer-to-Join Leakage',
-    problem: 'Of 1,524 applicants who reached Offer Extended, only 86 joined — a 5.6% offer-to-join conversion. The Offer Acceptance Rate is 69.48%, but 1,351 candidates received offers and neither accepted nor joined.',
+    problem: 'Of 1,524 applicants who reached Offer Extended, only 86 joined  -  a 5.6% offer-to-join conversion. The Offer Acceptance Rate is 69.48%, but 1,351 candidates received offers and neither accepted nor joined.',
     why: 'This massive leak at the final stage wastes all the time and resources invested in earlier rounds. It points to uncompetitive compensation, slow offer turnaround, or poor candidate experience.',
     next: 'Benchmark CTC against market rates. Tighten the offer loop with faster turnaround. Implement candidate follow-up sequences for pending offers.',
   },

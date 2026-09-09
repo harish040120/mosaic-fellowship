@@ -1,4 +1,4 @@
-# Sieve — a hiring funnel is literally a sieve
+# Sieve  -  a hiring funnel is literally a sieve
 
 **Composite Hiring Efficiency Score: 20.66 / 100**
 
@@ -41,10 +41,10 @@ The company's overall **Composite Hiring Efficiency Score is 20.66**.
 
 ## Architecture
 
-- **`metrics.js`** — Pure calculation functions (no dependencies), shared between Node build script and browser bundle
-- **`process.js`** — Node entry point, reads `hr_applicants.json`, writes `public/data/results.json`
-- **`src/`** — React dashboard (Vite + Recharts), reads only from `results.json`
-- **Tests** — Vitest: 24 unit tests + 18 integration tests (42 total)
+- **`metrics.js`**  -  Pure calculation functions (no dependencies), shared between Node build script and browser bundle
+- **`process.js`**  -  Node entry point, reads `hr_applicants.json`, writes `public/data/results.json`
+- **`src/`**  -  React dashboard (Vite + Recharts), reads only from `results.json`
+- **Tests**  -  Vitest: 24 unit tests + 18 integration tests (42 total)
 
 ## Tech Stack
 
@@ -58,7 +58,7 @@ The company's overall **Composite Hiring Efficiency Score is 20.66**.
 
 ## Report Export
 
-Click **Export PDF** in the top-right to download a clean, print-quality PDF report containing the composite score, funnel visualization, department breakdown table, and write-up — suitable for sharing with non-technical stakeholders.
+Click **Export PDF** in the top-right to download a clean, print-quality PDF report containing the composite score, funnel visualization, department breakdown table, and write-up  -  suitable for sharing with non-technical stakeholders.
 
 ## Dataset
 
