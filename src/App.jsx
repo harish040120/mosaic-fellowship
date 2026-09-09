@@ -54,8 +54,8 @@ function AppInner() {
           <div className="header-top">
             <div>
               <div className="eyebrow">Sieve</div>
-              <h1>Sieve — a hiring funnel is literally a sieve</h1>
-              <p className="subtitle">3,000 applicants across 10 departments — how efficient is the hiring process?</p>
+              <h1>Sieve - a hiring funnel is literally a sieve</h1>
+              <p className="subtitle">3,000 applicants across 10 departments - how efficient is the hiring process?</p>
             </div>
             <div className="header-actions">
               <button
