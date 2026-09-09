@@ -1,4 +1,4 @@
-# Sieve  -  a hiring funnel is literally a sieve
+# Sieve
 
 **Composite Hiring Efficiency Score: 20.66 / 100**
 

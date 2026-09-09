@@ -54,7 +54,7 @@ function AppInner() {
           <div className="header-top">
             <div>
               <div className="eyebrow">Sieve</div>
-              <h1>Sieve - a hiring funnel is literally a sieve</h1>
+              <h1>Sieve</h1>
               <p className="subtitle">3,000 applicants across 10 departments - how efficient is the hiring process?</p>
             </div>
             <div className="header-actions">
@@ -86,7 +86,7 @@ function AppInner() {
         <Writeup />
 
         <footer className="footer">
-          <p>Generated {new Date(data.generatedAt).toLocaleDateString()} · Sieve  -  Composite Hiring Efficiency Score: <strong>{data.companyWide.compositeScore}</strong></p>
+          <p>Generated {new Date(data.generatedAt).toLocaleDateString()} · Sieve - Composite Hiring Efficiency Score: <strong>{data.companyWide.compositeScore}</strong></p>
         </footer>
       </div>
 
